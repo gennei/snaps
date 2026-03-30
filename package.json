@@ -12,7 +12,7 @@
     "validate:photos": "node scripts/validate-photos.mjs"
   },
   "dependencies": {
-    "astro": "^5.6.0"
+    "astro": "^6.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
