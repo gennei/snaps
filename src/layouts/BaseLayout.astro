@@ -1,0 +1,289 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Gennei Snaps",
+  description = "A quiet personal archive of city walks, flowers, and everyday photographs."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f3efe7;
+    --panel: rgba(255, 255, 255, 0.68);
+    --panel-strong: rgba(255, 255, 255, 0.9);
+    --line: rgba(36, 30, 18, 0.14);
+    --text: #1f1b16;
+    --muted: #645b50;
+    --accent: #8f5c35;
+    --shadow: 0 24px 60px rgba(56, 40, 18, 0.12);
+    --page-width: min(1120px, calc(100vw - 2rem));
+    --radius-lg: 30px;
+    --radius-md: 20px;
+    --radius-sm: 14px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background:
+      radial-gradient(circle at top left, rgba(186, 148, 102, 0.18), transparent 32%),
+      radial-gradient(circle at top right, rgba(102, 120, 150, 0.12), transparent 28%),
+      linear-gradient(180deg, #f6f1e8 0%, #f1ece2 100%);
+    color: var(--text);
+    font-family: "Manrope", sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .site-shell {
+    width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0 0.8rem;
+  }
+
+  .site-brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.02em;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .site-nav a {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.38);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .site-nav a:hover,
+  .site-nav a:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(143, 92, 53, 0.4);
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  main {
+    padding: 0 0 4rem;
+  }
+
+  .section {
+    margin-top: 2rem;
+    padding: clamp(1.25rem, 2vw, 1.8rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--panel);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow);
+  }
+
+  .section-title,
+  .page-title {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .page-title {
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.6rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .lead {
+    max-width: 64ch;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .photo-card {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .photo-card-media,
+  .hero-media,
+  .detail-media {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(36, 30, 18, 0.1);
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .photo-card-media img,
+  .hero-media img,
+  .detail-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 280ms ease;
+  }
+
+  .photo-card a:hover img,
+  .photo-card a:focus-visible img {
+    transform: scale(1.02);
+  }
+
+  .photo-card-title {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.55rem;
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .tag-list,
+  .category-list {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.54);
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .site-footer {
+    padding: 0 0 2rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .site-footer .section {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .photo-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .site-header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 1rem;
+    }
+
+    .site-nav {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :root {
+      --page-width: min(100vw - 1rem, 1120px);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+    }
+
+    .section {
+      margin-top: 1rem;
+      padding: 1rem;
+    }
+
+    .photo-grid {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .site-nav a,
+    .pill {
+      padding: 0.75rem 0.95rem;
+    }
+  }
+</style>

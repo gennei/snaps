@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import { categoryLabels, getPhotos, type PhotoCategory } from "../lib/photos";
+
+const photos = await getPhotos();
+const selectedCategory = Astro.url.searchParams.get("category") as PhotoCategory | null;
+const filteredPhotos = selectedCategory
+  ? photos.filter((photo) => photo.data.category === selectedCategory)
+  : photos;
+---
+
+<BaseLayout
+  title="Gallery | Gennei Snaps"
+  description="Browse the full Gennei Snaps gallery by recency or category."
+>
+  <SiteHeader />
+  <main>
+    <PageIntro
+      eyebrow="Gallery"
+      title="Photo archive"
+      text="All entries are local files in the repository, statically built and easy to maintain over time."
+    />
+
+    <section class="site-shell section">
+      <div class="filters">
+        <a class:list={["pill", !selectedCategory && "is-active"]} href="/gallery">All</a>
+        {
+          Object.entries(categoryLabels).map(([slug, label]) => (
+            <a
+              class:list={["pill", selectedCategory === slug && "is-active"]}
+              href={`/gallery?category=${slug}`}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </div>
+      <div class="photo-grid">
+        {filteredPhotos.map((photo) => <PhotoCard photo={photo} />)}
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .filters {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .is-active {
+    background: rgba(143, 92, 53, 0.1);
+    border-color: rgba(143, 92, 53, 0.28);
+    color: var(--text);
+  }
+</style>

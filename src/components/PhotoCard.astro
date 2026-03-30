@@ -1,0 +1,58 @@
+---
+import { categoryLabels, formatPhotoDate } from "../lib/photos";
+
+interface Props {
+  photo: {
+    id: string;
+    slug: string;
+    data: {
+      title: string;
+      date: Date;
+      category: keyof typeof categoryLabels;
+      description?: string;
+      image: string;
+      thumbnail?: string;
+    };
+  };
+}
+
+const { photo } = Astro.props;
+const imageSrc = photo.data.thumbnail ?? photo.data.image;
+---
+
+<article class="photo-card">
+  <a href={`/photos/${photo.slug}`}>
+    <div class="photo-card-media">
+      <img
+        src={imageSrc}
+        alt={photo.data.title}
+        loading="lazy"
+        width="1200"
+        height="900"
+      />
+    </div>
+  </a>
+  <div>
+    <div class="meta-row">
+      <span>{categoryLabels[photo.data.category]}</span>
+      <span aria-hidden="true">·</span>
+      <time datetime={photo.data.date.toISOString()}>
+        {formatPhotoDate(photo.data.date)}
+      </time>
+    </div>
+    <h2 class="photo-card-title">
+      <a href={`/photos/${photo.slug}`}>{photo.data.title}</a>
+    </h2>
+    {photo.data.description && <p class="lead">{photo.data.description}</p>}
+  </div>
+</article>
+
+<style>
+  .lead {
+    margin-top: 0.4rem;
+  }
+
+  .photo-card-media {
+    aspect-ratio: 4 / 3;
+  }
+</style>

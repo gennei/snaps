@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import { categoryLabels, getRecentPhotos } from "../lib/photos";
+
+const recentPhotos = await getRecentPhotos(6);
+const heroPhoto = recentPhotos[0];
+const categories = Object.entries(categoryLabels);
+---
+
+<BaseLayout
+  title="Gennei Snaps"
+  description="A personal photography site by Gennei with a simple static archive of city nights, flowers, and everyday snaps."
+>
+  <SiteHeader />
+  <main>
+    <section class="site-shell section hero-section">
+      <div class="hero-copy">
+        <p class="eyebrow">Personal Photography Archive</p>
+        <h1 class="page-title">Gennei Snaps</h1>
+        <p class="lead">
+          A quiet archive of city light, small flowers, and the ordinary scenes worth keeping.
+        </p>
+        <div class="hero-actions">
+          <a class="pill action-pill" href="/gallery">Browse gallery</a>
+          <a class="pill" href="/about">About this archive</a>
+        </div>
+      </div>
+      {heroPhoto && (
+        <a class="hero-media" href={`/photos/${heroPhoto.slug}`}>
+          <img
+            src={heroPhoto.data.image}
+            alt={heroPhoto.data.title}
+            width="2400"
+            height="1600"
+          />
+        </a>
+      )}
+    </section>
+
+    <section class="site-shell section">
+      <p class="eyebrow">Recent Photos</p>
+      <div class="section-header">
+        <h2 class="section-title">Latest additions</h2>
+        <a class="pill" href="/gallery">See all photos</a>
+      </div>
+      <div class="photo-grid">
+        {recentPhotos.map((photo) => <PhotoCard photo={photo} />)}
+      </div>
+    </section>
+
+    <section class="site-shell section">
+      <p class="eyebrow">Categories</p>
+      <h2 class="section-title">Four simple ways to browse</h2>
+      <div class="category-list">
+        {
+          categories.map(([slug, label]) => (
+            <a class="pill" href={`/gallery?category=${slug}`}>{label}</a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="site-shell section about-preview">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2 class="section-title">Built to stay simple</h2>
+      </div>
+      <p class="lead">
+        This site is intentionally small: local photo files, one metadata file per photo, static generation,
+        and no moving parts to maintain beyond the repository itself.
+      </p>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .hero-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+    gap: 1.2rem;
+    align-items: end;
+    min-height: min(80vh, 760px);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1rem;
+    align-self: center;
+    padding: clamp(0.4rem, 1vw, 1rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .action-pill {
+    background: rgba(143, 92, 53, 0.1);
+    border-color: rgba(143, 92, 53, 0.22);
+    color: var(--text);
+  }
+
+  .hero-media {
+    min-height: 440px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+
+  .about-preview {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .hero-section,
+    .about-preview {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-media {
+      min-height: auto;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
