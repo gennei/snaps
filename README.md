@@ -85,7 +85,7 @@ npm run build
 
 This repository includes `renovate.json` for low-noise dependency maintenance.
 
-- currently allows immediate initial onboarding
+- runs on a weekly schedule
 - groups non-major npm updates into a small number of PRs
 - requires manual dashboard approval for major updates
 - enables monthly lock file maintenance
