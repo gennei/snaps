@@ -81,6 +81,15 @@ npm run check
 npm run build
 ```
 
+## Dependency Updates
+
+This repository includes `renovate.json` for low-noise dependency maintenance.
+
+- runs on a weekly schedule
+- groups non-major npm updates into a small number of PRs
+- requires manual dashboard approval for major updates
+- enables monthly lock file maintenance
+
 ## Add A New Photo
 
 1. Add optimized images to `public/photos/<slug>/thumb.jpg` and `public/photos/<slug>/hero.jpg`
