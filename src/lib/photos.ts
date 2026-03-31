@@ -2,6 +2,9 @@ import { getCollection } from "astro:content";
 
 export type PhotoCategory = "night" | "city" | "flowers" | "snap";
 
+type PhotoEntry = Awaited<ReturnType<typeof getCollection<"photos">>>[number];
+export type Photo = PhotoEntry & { slug: string };
+
 export const categoryLabels: Record<PhotoCategory, string> = {
   night: "Night",
   city: "City",
@@ -12,9 +15,14 @@ export const categoryLabels: Record<PhotoCategory, string> = {
 export async function getPhotos() {
   const photos = await getCollection("photos");
 
-  return photos.sort(
+  return photos
+    .map((photo) => ({
+      ...photo,
+      slug: photo.id.replace(/\.md$/, "")
+    }))
+    .sort(
     (a, b) => b.data.date.getTime() - a.data.date.getTime()
-  );
+    );
 }
 
 export async function getRecentPhotos(limit = 6) {
