@@ -1,6 +1,27 @@
 <footer class="site-shell site-footer">
   <div class="section">
-    <p>snaps.gennei.coffee</p>
-    <p>Static Astro gallery for a quiet, long-lived personal archive.</p>
+    <p class="footer-domain">snaps.gennei.coffee</p>
+    <p class="footer-copy">Static Astro gallery for a quiet, long-lived personal archive.</p>
   </div>
 </footer>
+
+<style>
+  .footer-domain,
+  .footer-copy {
+    margin: 0;
+  }
+
+  .footer-domain {
+    color: var(--text);
+    font-size: 0.88rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .footer-copy {
+    margin-top: 0.55rem;
+    max-width: 40ch;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+</style>

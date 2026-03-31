@@ -23,6 +23,7 @@ const categories = Object.entries(categoryLabels);
         <p class="lead">
           A quiet archive of city light, small flowers, and the ordinary scenes worth keeping.
         </p>
+        <p class="hero-note">Monotone framing, quiet typography, and photographs kept at the center.</p>
         <div class="hero-actions">
           <a class="pill action-pill" href="/gallery">Browse gallery</a>
           <a class="pill" href="/about">About this archive</a>
@@ -80,17 +81,26 @@ const categories = Object.entries(categoryLabels);
 <style>
   .hero-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
-    gap: 1.2rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+    gap: 1.4rem;
     align-items: end;
-    min-height: min(80vh, 760px);
+    min-height: min(82vh, 780px);
   }
 
   .hero-copy {
     display: grid;
-    gap: 1rem;
+    gap: 1.1rem;
     align-self: center;
-    padding: clamp(0.4rem, 1vw, 1rem);
+    padding: clamp(0.4rem, 1vw, 1rem) clamp(0.2rem, 1vw, 1.2rem) clamp(0.6rem, 1.2vw, 1.4rem)
+      0.2rem;
+  }
+
+  .hero-note {
+    margin: 0;
+    max-width: 38ch;
+    color: var(--muted-soft);
+    font-size: 0.9rem;
+    line-height: 1.7;
   }
 
   .hero-actions {
@@ -100,14 +110,22 @@ const categories = Object.entries(categoryLabels);
   }
 
   .action-pill {
-    background: rgba(143, 92, 53, 0.1);
-    border-color: rgba(143, 92, 53, 0.22);
-    color: var(--text);
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--surface-strong);
+  }
+
+  .action-pill:hover,
+  .action-pill:focus-visible {
+    background: #222222;
+    border-color: #222222;
+    color: var(--surface-strong);
   }
 
   .hero-media {
-    min-height: 440px;
+    min-height: 520px;
     aspect-ratio: 4 / 5;
+    box-shadow: 0 34px 70px rgba(17, 17, 17, 0.12);
   }
 
   .section-header {
@@ -120,7 +138,7 @@ const categories = Object.entries(categoryLabels);
 
   .about-preview {
     display: grid;
-    gap: 0.8rem;
+    gap: 1rem;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     align-items: center;
   }

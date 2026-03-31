@@ -13,3 +13,12 @@ const { eyebrow, title, text } = Astro.props;
   <h1 class="page-title">{title}</h1>
   <p class="lead">{text}</p>
 </section>
+
+<style>
+  section {
+    display: grid;
+    gap: 0.9rem;
+    min-height: min(44vh, 420px);
+    align-content: end;
+  }
+</style>
