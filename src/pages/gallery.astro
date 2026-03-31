@@ -4,7 +4,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import PageIntro from "../components/PageIntro.astro";
 import PhotoCard from "../components/PhotoCard.astro";
-import { categoryLabels, getPhotos, type PhotoCategory } from "../lib/photos";
+import { categoryLabels, getPhotos, type PhotoCategory, withBase } from "../lib/photos";
 
 const photos = await getPhotos();
 const selectedCategory = Astro.url.searchParams.get("category") as PhotoCategory | null;
@@ -27,12 +27,12 @@ const filteredPhotos = selectedCategory
 
     <section class="site-shell section">
       <div class="filters">
-        <a class:list={["pill", !selectedCategory && "is-active"]} href="/gallery">All</a>
+        <a class:list={["pill", !selectedCategory && "is-active"]} href={withBase("gallery")}>All</a>
         {
           Object.entries(categoryLabels).map(([slug, label]) => (
             <a
               class:list={["pill", selectedCategory === slug && "is-active"]}
-              href={`/gallery?category=${slug}`}
+              href={withBase(`gallery?category=${slug}`)}
             >
               {label}
             </a>

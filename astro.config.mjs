@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://snaps.gennei.coffee",
+  site: "https://gennei.github.io",
+  base: "/snaps",
   output: "static"
 });

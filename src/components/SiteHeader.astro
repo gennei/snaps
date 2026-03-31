@@ -1,16 +1,20 @@
 ---
+import { basePath, withBase } from "../lib/photos";
+
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/gallery", label: "Gallery" }
+  { href: "", label: "Home" },
+  { href: "gallery", label: "Gallery" }
 ];
+
+const base = basePath();
 ---
 
 <header class="site-shell site-header">
-  <a class="site-brand" href="/">Gennei Snaps</a>
+  <a class="site-brand" href={base}>Gennei Snaps</a>
   <nav class="site-nav" aria-label="Primary">
     {
       links.map((link) => (
-        <a href={link.href}>{link.label}</a>
+        <a href={link.href ? withBase(link.href) : base}>{link.label}</a>
       ))
     }
   </nav>

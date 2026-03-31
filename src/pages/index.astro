@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import PhotoCard from "../components/PhotoCard.astro";
-import { categoryLabels, getRecentPhotos } from "../lib/photos";
+import { categoryLabels, getRecentPhotos, withBase } from "../lib/photos";
 
 const recentPhotos = await getRecentPhotos(6);
 const heroPhoto = recentPhotos[0];
@@ -25,13 +25,13 @@ const categories = Object.entries(categoryLabels);
         </p>
         <p class="hero-note">Monotone framing, quiet typography, and photographs kept at the center.</p>
         <div class="hero-actions">
-          <a class="pill action-pill" href="/gallery">Browse gallery</a>
+          <a class="pill action-pill" href={withBase("gallery")}>Browse gallery</a>
         </div>
       </div>
       {heroPhoto && (
-        <a class="hero-media" href={`/photos/${heroPhoto.slug}`}>
+        <a class="hero-media" href={withBase(`photos/${heroPhoto.slug}`)}>
           <img
-            src={heroPhoto.data.image}
+            src={withBase(heroPhoto.data.image)}
             alt={heroPhoto.data.title}
             width="2400"
             height="1600"
@@ -44,7 +44,7 @@ const categories = Object.entries(categoryLabels);
       <p class="eyebrow">Recent Photos</p>
       <div class="section-header">
         <h2 class="section-title">Latest additions</h2>
-        <a class="pill" href="/gallery">See all photos</a>
+        <a class="pill" href={withBase("gallery")}>See all photos</a>
       </div>
       <div class="photo-grid">
         {recentPhotos.map((photo) => <PhotoCard photo={photo} />)}
@@ -57,7 +57,7 @@ const categories = Object.entries(categoryLabels);
       <div class="category-list">
         {
           categories.map(([slug, label]) => (
-            <a class="pill" href={`/gallery?category=${slug}`}>{label}</a>
+            <a class="pill" href={withBase(`gallery?category=${slug}`)}>{label}</a>
           ))
         }
       </div>

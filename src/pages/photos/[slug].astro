@@ -3,7 +3,7 @@ import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { categoryLabels, formatPhotoDate, getPhotos } from "../../lib/photos";
+import { categoryLabels, formatPhotoDate, getPhotos, withBase } from "../../lib/photos";
 
 export async function getStaticPaths() {
   const photos = await getPhotos();
@@ -33,7 +33,7 @@ const { Content } = await render(photo);
             {formatPhotoDate(photo.data.date)}
           </time>
           <span aria-hidden="true">·</span>
-          <a class="pill" href={`/gallery?category=${photo.data.category}`}>
+          <a class="pill" href={withBase(`gallery?category=${photo.data.category}`)}>
             {categoryLabels[photo.data.category]}
           </a>
         </div>
@@ -49,7 +49,7 @@ const { Content } = await render(photo);
 
       <div class="detail-media">
         <img
-          src={photo.data.image}
+          src={withBase(photo.data.image)}
           alt={photo.data.title}
           width="2400"
           height="1600"

@@ -1,5 +1,5 @@
 ---
-import { categoryLabels, formatPhotoDate } from "../lib/photos";
+import { categoryLabels, formatPhotoDate, withBase } from "../lib/photos";
 
 interface Props {
   photo: {
@@ -17,11 +17,12 @@ interface Props {
 }
 
 const { photo } = Astro.props;
-const imageSrc = photo.data.thumbnail ?? photo.data.image;
+const imageSrc = withBase(photo.data.thumbnail ?? photo.data.image);
+const photoHref = withBase(`photos/${photo.slug}`);
 ---
 
 <article class="photo-card">
-  <a href={`/photos/${photo.slug}`}>
+  <a href={photoHref}>
     <div class="photo-card-media">
       <img
         src={imageSrc}
@@ -41,7 +42,7 @@ const imageSrc = photo.data.thumbnail ?? photo.data.image;
       </time>
     </div>
     <h2 class="photo-card-title">
-      <a href={`/photos/${photo.slug}`}>{photo.data.title}</a>
+      <a href={photoHref}>{photo.data.title}</a>
     </h2>
     {photo.data.description && <p class="lead">{photo.data.description}</p>}
   </div>

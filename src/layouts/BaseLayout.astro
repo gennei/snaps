@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../lib/photos";
+
 interface Props {
   title?: string;
   description?: string;
@@ -8,6 +10,8 @@ const {
   title = "Gennei Snaps",
   description = "A quiet personal archive of city walks, flowers, and everyday photographs."
 } = Astro.props;
+
+const iconHref = withBase("/favicon.svg");
 ---
 
 <!doctype html>
@@ -17,7 +21,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={iconHref} type="image/svg+xml" />
   </head>
   <body>
     <slot />
