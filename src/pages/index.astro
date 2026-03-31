@@ -26,7 +26,6 @@ const categories = Object.entries(categoryLabels);
         <p class="hero-note">Monotone framing, quiet typography, and photographs kept at the center.</p>
         <div class="hero-actions">
           <a class="pill action-pill" href="/gallery">Browse gallery</a>
-          <a class="pill" href="/about">About this archive</a>
         </div>
       </div>
       {heroPhoto && (
@@ -64,10 +63,10 @@ const categories = Object.entries(categoryLabels);
       </div>
     </section>
 
-    <section class="site-shell section about-preview">
+    <section class="site-shell section archive-note">
       <div>
-        <p class="eyebrow">About</p>
-        <h2 class="section-title">Built to stay simple</h2>
+        <p class="eyebrow">Archive Note</p>
+        <h2 class="section-title">Built to stay focused</h2>
       </div>
       <p class="lead">
         This site is intentionally small: local photo files, one metadata file per photo, static generation,
@@ -136,7 +135,7 @@ const categories = Object.entries(categoryLabels);
     margin-bottom: 1rem;
   }
 
-  .about-preview {
+  .archive-note {
     display: grid;
     gap: 1rem;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -145,7 +144,7 @@ const categories = Object.entries(categoryLabels);
 
   @media (max-width: 900px) {
     .hero-section,
-    .about-preview {
+    .archive-note {
       grid-template-columns: 1fr;
     }
 
